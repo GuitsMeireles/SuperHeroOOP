@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.oop.herosoop.databinding.ActivityMainBinding
 import com.oop.herosoop.model.SuperHero
 import com.oop.herosoop.network.Endpoint
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         getData()
     }
 
-    fun getData() {
+    private fun getData() {
         val retrofitClient = NetworkUtils
             .getRetrofitInstance("https://akabab.github.io/superhero-api/api/")
 
@@ -44,10 +45,20 @@ class MainActivity : AppCompatActivity() {
                 Log.i("guits", "SUCESSO")
                 Log.i("guits", response.body().toString())
 
+                response.body()?.let {
+                    setUpRecyclerView(it)
+                }
+
             }
         })
-        private fun setUpRecyclerView() {
-            
-        }
+
+
+    }
+
+    private fun setUpRecyclerView(dataSet: List<SuperHero>) {
+        val rcView = binding.rcView
+
+        rcView.layoutManager = LinearLayoutManager(this)
+        rcView.adapter = SuperHeroAdapter(dataSet)
     }
 }
