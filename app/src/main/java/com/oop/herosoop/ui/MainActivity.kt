@@ -1,4 +1,4 @@
-package com.oop.herosoop
+package com.oop.herosoop.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
